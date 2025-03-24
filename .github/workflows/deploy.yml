@@ -31,16 +31,15 @@ jobs:
       # Step 4: Build the Sphinx documentation
       - name: Build Documentation
         run: sphinx-build -b html docs/ docs/_build/  # Generates HTML in docs/_build/
-      
+
       # Step 5: List the contents of the build folder (for debugging)
       - name: List files in build folder
         run: ls -R docs/_build/  # This will show all files generated in the build folder
 
-      # Step 6: Move generated docs to the root directory
+      # Step 6: Move Built Docs to Root (without clearing root)
       - name: Move Built Docs to Root
         run: |
-          rm -rf ./*            # Clear the root directory
-          mv docs/_build/html/* .  # Move all files from docs/_build/html to the root
+          cp -R docs/_build/html/* .  # Copy all files from docs/_build/html to the root
 
       # Step 7: Commit and push the changes to GitHub
       - name: Commit and Push Changes
