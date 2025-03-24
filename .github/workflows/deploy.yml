@@ -31,14 +31,18 @@ jobs:
       # Step 4: Build the Sphinx documentation
       - name: Build Documentation
         run: sphinx-build -b html docs/ docs/_build/  # Generates HTML in docs/_build/
+      
+      # Step 5: List the contents of the build folder (for debugging)
+      - name: List files in build folder
+        run: ls -R docs/_build/  # This will show all files generated in the build folder
 
-      # Step 5: Move generated docs to the root directory
+      # Step 6: Move generated docs to the root directory
       - name: Move Built Docs to Root
         run: |
           rm -rf ./*            # Clear the root directory
           mv docs/_build/html/* .  # Move all files from docs/_build/html to the root
 
-      # Step 6: Commit and push the changes to GitHub
+      # Step 7: Commit and push the changes to GitHub
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
@@ -46,9 +50,3 @@ jobs:
           git add .  # Stage the moved files
           git commit -m "Deploy documentation" || echo "No changes to commit"
           git push
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/_build/
-          destination_dir: . 
