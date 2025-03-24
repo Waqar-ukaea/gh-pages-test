@@ -39,7 +39,7 @@ jobs:
       # Step 6: Move Built Docs to Root (without clearing root)
       - name: Move Built Docs to Root
         run: |
-          cp -R docs/_build/html/* .  # Copy all files from docs/_build/html to the root
+          cp -R docs/_build/*.html .  # Copy all files from docs/_build/html to the root
 
       # Step 7: Commit and push the changes to GitHub
       - name: Commit and Push Changes
